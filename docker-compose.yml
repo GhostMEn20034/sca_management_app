@@ -2,9 +2,9 @@ version: "3.8"
 services:
 
   # Django app
-  scp_web:
+  web:
     build: .
-    container_name: djangousers
+    container_name: sca_web
     command: >
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
@@ -21,11 +21,12 @@ services:
     depends_on:
       - db
 
-  scp_db:
+  # Postgres Database
+  db:
     image: postgres:15.4-alpine
-    container_name: postgres_db
+    container_name: sca_postgres_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - sca_postgres_data:/var/lib/postgresql/data/
       - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
     environment:
       - POSTGRES_PASSWORD=${SUPER_USER_PWD}
@@ -34,4 +35,4 @@ services:
       - SQL_PASSWORD=${SQL_PASSWORD}
 
 volumes:
-  postgres_data:
+  sca_postgres_data:
