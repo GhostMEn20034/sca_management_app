@@ -11,5 +11,7 @@ urlpatterns = [
         path('', include('apps.cats.urls')),
 
         path('', include('apps.missions.urls')),
+
+        path('', include('apps.targets.urls')),
     ]))
 ]

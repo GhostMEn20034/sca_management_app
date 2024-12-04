@@ -18,6 +18,12 @@ class MissionViewSet(viewsets.ModelViewSet):
             status=status.HTTP_405_METHOD_NOT_ALLOWED,
         )
 
+    def partial_update(self, request, *args, **kwargs):
+        return Response(
+            {"error": "Direct mission updates are not allowed."},
+            status=status.HTTP_405_METHOD_NOT_ALLOWED,
+        )
+
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance.cat is not None:
