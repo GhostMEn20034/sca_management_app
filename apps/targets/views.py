@@ -47,7 +47,8 @@ class TargetViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=["post"])
     def mark_completed(self, request, pk=None):
         """
-        Mark a target as completed.
+        Mark a target as completed and check if all related targets in the mission are completed.
+        If all targets are completed, the mission will also be marked as completed.
         """
         target = self.get_object()
         if target.is_complete:
@@ -58,6 +59,16 @@ class TargetViewSet(viewsets.ModelViewSet):
 
         target.is_complete = True
         target.save()
+
+        # Check if all targets of the related mission are completed
+        mission = target.mission
+        all_targets_completed = mission.targets.filter(is_complete=False).count() == 0
+
+        # If all targets are completed, mark the mission as completed
+        if all_targets_completed:
+            mission.is_complete = True
+            mission.save()
+
         return Response(
             {"message": f"Target {target.name} has been marked as completed."},
             status=status.HTTP_200_OK,
