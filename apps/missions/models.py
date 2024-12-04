@@ -4,8 +4,7 @@ from apps.cats.models import SpyCat
 
 
 class Mission(models.Model):
-    name = models.CharField(max_length=255)  # New field
-    # IF the cat will be deleted, you can assign a new cat for this mission
+    name = models.CharField(max_length=255)
     cat = models.OneToOneField(SpyCat, null=True, blank=True, on_delete=models.SET_NULL, related_name="mission")
     is_complete = models.BooleanField(default=False)
 
