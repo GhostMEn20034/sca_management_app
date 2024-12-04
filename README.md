@@ -1,5 +1,8 @@
 # SCA ( Spy Cat Agency ) Management App
 
+# Tech stack:
+Python, Django, PostgreSQL, Docker, Docker Compose
+
 # Warning!
 
 This project assumes that you will use any linux distro. <br>
