@@ -11,7 +11,6 @@ class MissionViewSet(viewsets.ModelViewSet):
     queryset = Mission.objects.all().prefetch_related('targets')
     serializer_class = MissionSerializer
 
-    # Disable the default update action
     def update(self, request, *args, **kwargs):
         return Response(
             {"error": "Direct mission updates are not allowed."},

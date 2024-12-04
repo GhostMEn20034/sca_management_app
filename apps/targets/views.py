@@ -10,6 +10,12 @@ class TargetViewSet(viewsets.ModelViewSet):
     queryset = Target.objects.all()
     serializer_class = TargetSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        return Response(
+            {"error": "Direct mission updates are not allowed."},
+            status=status.HTTP_405_METHOD_NOT_ALLOWED,
+        )
+
     # Prevent listing targets
     def list(self, request, *args, **kwargs):
         return Response(
